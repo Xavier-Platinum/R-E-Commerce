@@ -1,0 +1,79 @@
+<div class="container wave-box-wrapper">
+	<div class="wave-box"></div>
+	<p class="ml-b"><span class="glyphicon glyphicon-chevron-left"></span> <%= link_to "All Products", products_path, class: "ml-b text-success" %></p>
+	
+	<%= hidden_field_tag :authenticity_token_external, form_authenticity_token %>
+	
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			Edit Product
+		</div>
+		<div class="panel-body">
+			<%= form_for @product, :html => {:class => "update-product"} do |f| %>
+				<div class="col-md-8">
+					<div class="form-group">
+						<%= f.label :name %>*
+						<%= f.text_field :name, :class => "form-control required" %>
+					</div>
+					<div class="form-group">
+						<%= f.label :content %>
+						<%= f.text_area :content, :class => "form-control", :id => "ck-editor-area" %>
+					</div>
+					<div class="form-group">
+						<%= f.label :excerpt, "Short Description" %>
+						<%= f.text_area :excerpt, :class => "form-control", rows: "8" %>
+					</div>
+					<div class = "form-group">
+						<%= f.label :images, "Select Product Images" %>
+						<%= f.file_field :images, :class => "form-control", accept: "image/*", :multiple => true %>
+					
+						<hr />
+						
+						<div class = "clearfix m-t images-section">
+							<% if @product.images.present? %>
+								<% @product.images.each_with_index do |image, index| %>
+									<div class = "col-sm-3">
+										<span class="unset-image glyphicon glyphicon-remove text-danger lead m-0 c-p" id="unset-<%= image %>" title="Delete image"></span>
+										<% if (defined?(@product.featured_image)) && @product.featured_image == image %>
+											<span class="set-featured-image glyphicon glyphicon-star lead m-0 c-p" title="Set as featured image" id="featured-<%= image %>" style="color: #E4C317"></span>
+										<% else %>
+											<span class="set-featured-image glyphicon glyphicon-star-empty lead m-0 c-p" title="Set as featured image" id="featured-<%= image %>"></span>
+										<% end %>
+										<img src = "<%= asset_path("") %>/uploads/<%= image %>" class = "img-thumbnail img-responsive" />
+									</div>
+									
+									<% if (index + 1) % 4 == 0 %>
+										<div class = "clearfix"></div>
+									<% end %>
+								<% end %>
+							<% else %>
+								<p class = "alert alert-danger no-item-images">No images found</p>
+							<% end %>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="form-group">
+						<%= f.label :price %>*
+						<div class="input-group">
+							<div class="input-group-addon">$</div>
+							<%= f.text_field :price, :class => "form-control required", placeholder: "Amount" %>
+						</div>
+					</div>
+					<div class="form-group">
+						<%= f.label :status %>*
+						<select class="form-control" name="product[status]">
+							<option value="1">Active</option>
+							<option value="0">Inactive</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<%= f.label :files, "On Stock" %>*
+						<%= f.number_field :quantity, :class => "form-control required" %>
+					</div>
+					<input type="submit" class="btn btn-success" value="Update" />
+				</div>
+			<% end %>
+		</div>
+	</div>
+</div>
