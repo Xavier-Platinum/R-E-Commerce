@@ -9,7 +9,7 @@ This simple e-commerce application demonstrates CRUD operations using mongoDB an
 3. From the root directory of your mongodb installation, go to bin folder then run: mongod.exe to initialize the Mongodb database server
 4. Open another terminal then navigate to where you extracted the project files.
 5. Run bundle install to install all project dependencies.
-6. Finally run: rails server to start the Web Server.
+6. Finally run: rails server to start the Web Server. rails server -> rails server -b 0.0.0.0
 7. Open up your favorite browser then go to http://127.0.0.1:3000
 
 
